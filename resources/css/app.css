@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind variants;
+
+
+.listed:not(:last-child) {
+    @apply border-b border-b-gray-200 pb-3 mb-3;
+}
