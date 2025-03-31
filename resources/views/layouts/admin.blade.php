@@ -39,6 +39,9 @@
                     <x-card>
                         <a wire:navigate class="mb-3 block link" href="{{ route('admin.leagues') }}">Leagues</a>
                         <a wire:navigate class="mb-3 block link" href="{{ route('admin.clubs') }}">Clubs</a>
+                        <a wire:navigate class="mb-3 block link" href="{{ route('admin.fixtures') }}">Fixtures</a>
+                        <a wire:navigate class="mb-3 block link" href="{{ route('admin.contracts') }}">Contracts</a>
+                        <a wire:navigate class="mb-3 block link" href="{{ route('admin.users') }}">Users</a>
                     </x-card>
                 </nav>
 

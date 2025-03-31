@@ -20,7 +20,7 @@
                 <div class="flex -mx-5 px-5 justify-between gap-5 listed">
                     <div class="flex gap-5">
 
-                        <img src="{{ $club->getFirstMediaUrl('logo') }}" alt="Logo" class="w-10 h-10 object-cover rounded-full">
+                        <img src="{{ $club->getFirstMediaUrl('logo') }}" alt="Logo" class="w-10 h-10 object-contain rounded-full">
 
                         <span>{{ $club->name }}</span>
                     </div>

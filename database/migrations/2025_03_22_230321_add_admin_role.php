@@ -25,6 +25,7 @@ return new class extends Migration
             Permission::create(['name' => 'Admin Create Fixtures']),
             Permission::create(['name' => 'Admin Approve Fixtures']),
             Permission::create(['name' => 'Admin Create Leagues']),
+            Permission::create(['name' => 'Admin Manage Users']),
         ];
 
         foreach ($perms as $perm) {

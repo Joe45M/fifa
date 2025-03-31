@@ -28,9 +28,11 @@
             @endif
 
             <!-- Page Content -->
-            <main>
+            <main class="pt-10">
                 {{ $slot }}
             </main>
         </div>
+
+        <script src="https://kit.fontawesome.com/57607a1fa7.js" crossorigin="anonymous"></script>
     </body>
 </html>

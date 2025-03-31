@@ -3,7 +3,9 @@
 namespace App\Livewire\Admin;
 
 use App\Enum\ClubStatus;
+use App\Enum\ContractStatus;
 use App\Models\Club;
+use App\Models\Contract;
 use App\Models\League;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -38,7 +40,6 @@ class EditClub extends Component implements HasForms
 
     public function mount(Club $club)
     {
-
         $this->club = $this->club;
         $this->form->fill($this->club->toArray());
     }
@@ -60,5 +61,12 @@ class EditClub extends Component implements HasForms
     public function render()
     {
         return view('livewire.admin.edit-club')->layout('layouts.admin');
+    }
+
+    public function releasePlayer(Contract $contract)
+    {
+        $contract->update(['status' => ContractStatus::Inactive]);
+
+        $this->dispatch('toast', 'Player released.');
     }
 }

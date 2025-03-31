@@ -20,6 +20,22 @@ Route::prefix('/admin')->group(function () {
     Route::get('/clubs/{club:id}', \App\Livewire\Admin\EditClub::class)
         ->middleware(['can:Admin Create Clubs'])
         ->name('admin.clubs.edit');
+
+    Route::get('/users', \App\Livewire\Admin\Users::class)
+        ->middleware(['can:Admin Manage Users'])
+        ->name('admin.users');
+
+    Route::get('/contracts', \App\Livewire\Admin\Contracts::class)
+        ->middleware(['can:Admin Create Contracts'])
+        ->name('admin.contracts');
+
+    Route::get('/fixtures', \App\Livewire\Admin\Fixtures::class)
+        ->middleware(['can:Admin Create Fixtures'])
+        ->name('admin.fixtures');
+
+    Route::get('/fixtures/{fixture:id}', \App\Livewire\Admin\EditFixture::class)
+        ->middleware(['can:Admin Create Fixtures'])
+        ->name('admin.fixtures.edit');
 });
 
 ?>

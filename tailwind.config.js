@@ -16,6 +16,10 @@ export default {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             colors: {
+
+                bg: '#1B1B1B',
+                dark: '#0E0E0E',
+
                 custom: {
                     50: 'rgba(var(--c-50), <alpha-value>)',
                     100: 'rgba(var(--c-100), <alpha-value>)',

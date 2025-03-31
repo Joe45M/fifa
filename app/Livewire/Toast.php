@@ -17,6 +17,7 @@ class Toast extends Component
     #[On('toast')]
     public function toast(string $title, string $type = 'success')
     {
+
         $this->toast[] = collect([
             'title' => $title,
             'type' => $type

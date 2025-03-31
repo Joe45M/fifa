@@ -53,7 +53,6 @@ class Clubs extends Component implements HasForms
         // Add the logo to the clubs media
         $club->addMedia(storage_path('app/public/'. $logo))
             ->toMediaCollection('logo');
-
     }
 
     public function render()
