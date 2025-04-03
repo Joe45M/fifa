@@ -10,3 +10,12 @@
 .listed:not(:last-child) {
     @apply border-b border-b-gray-200 pb-3 mb-3;
 }
+
+.listed {
+    @apply -mx-5 px-5;
+}
+
+
+.styled-checkbox:has(input:checked) {
+    @apply bg-blue-500 text-white;
+}
