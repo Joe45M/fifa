@@ -10,7 +10,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class League extends Model implements HasMedia
 {
-
     use InteractsWithMedia, HasFactory;
     protected $fillable = [
         'name',

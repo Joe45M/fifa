@@ -22,6 +22,9 @@
 
 
 <div class="min-h-screen {{ $route != 'manage.submit' ? 'bg-gray-200' : '' }}">
+
+    <livewire:cancel-impersonate></livewire:cancel-impersonate>
+
     <livewire:layout.navigation />
 
     <livewire:toast></livewire:toast>
@@ -60,13 +63,6 @@
                         <div class="flex justify-center">
                         </div>
                         <div class="block text-center w-full">Roster</div>
-                    </div>
-                </a>
-                <a wire:navigate href="{{ route('manage.roster') }}" class="font-bold uppercase text-sm bg-bg hover:bg-dark py-3 justify-center rounded-md flex items-center text-white text-white">
-                    <div>
-                        <div class="flex justify-center">
-                        </div>
-                        <div class="block text-center w-full">Edit profile</div>
                     </div>
                 </a>
             </div>

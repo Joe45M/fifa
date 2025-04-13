@@ -11,7 +11,7 @@ class Card extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $title = false)
+    public function __construct(public $title = false, public bool $padding = true)
     {
         //
     }

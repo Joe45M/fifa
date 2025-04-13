@@ -6,7 +6,7 @@
         </div>
         @endif
 
-    <div class="p-5">
+    <div @if($padding) class="p-5" @endif>
         {{ $slot }}
     </div>
 </div>

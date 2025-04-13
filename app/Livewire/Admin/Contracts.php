@@ -59,6 +59,10 @@ class Contracts extends Component implements HasForms
             'length' => $this->form->getState()['games_remaining'],
         ];
 
+        Contract::where('user_id', $this->form->getState()['user_id'])->update([
+            'status' => ContractStatus::Inactive,
+        ]);
+
         $contract = Contract::create(array_merge($this->form->getState(), $options));
 
         $this->dispatch('toast', 'Contract created successfully');

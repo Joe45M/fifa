@@ -5,9 +5,12 @@ namespace App\Livewire\Admin;
 use App\Enum\FixtureStatus;
 use App\Enum\FixtureType;
 use App\Enum\LeagueStatus;
+use App\Jobs\AcceptFixtureJob;
 use App\Models\Club;
 use App\Models\Fixture;
 use App\Models\League;
+use App\Models\UserStat;
+use App\Traits\UseToast;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
@@ -22,10 +25,11 @@ use Livewire\Component;
 class Fixtures extends Component implements HasForms
 {
 
-    use InteractsWithForms;
+    use InteractsWithForms, UseToast;
     public ?array $formFields;
 
     public $fixtures;
+    public \Illuminate\Database\Eloquent\Collection $pendingFixtures;
 
     public function mount()
     {
@@ -36,6 +40,7 @@ class Fixtures extends Component implements HasForms
     {
 
         $this->fixtures = Fixture::with('homeClub', 'awayClub')->get(['id', 'kickoff_at', 'home_club_id', 'away_club_id', 'type', 'status', 'season']);
+        $this->pendingFixtures = Fixture::with('homeClub', 'awayClub')->where('status', FixtureStatus::Pending)->get(['id', 'kickoff_at', 'home_club_id', 'away_club_id', 'type', 'status', 'season']);
         return view('livewire.admin.fixtures')->layout('layouts.admin');
     }
 
@@ -73,5 +78,40 @@ class Fixtures extends Component implements HasForms
                     ->label('Away Team')
                     ->required(),
             ])->statePath('formFields');
+    }
+
+    public function acceptFixture(Fixture $fixture)
+    {
+        if ($fixture->status === FixtureStatus::Completed || $fixture->status === FixtureStatus::Processing) {
+            $this->toast('Fixture already completed', 'error');
+
+            return false;
+        }
+
+        $fixture->status = FixtureStatus::Processing;
+        $fixture->save();
+
+        $this->toast('System has began processing', 'success');
+        AcceptFixtureJob::dispatch($fixture);
+    }
+
+    public function unprop(string $location, Fixture $fixture)
+    {
+        if ($location === 'home') {
+            $club = $fixture->homeClub;
+        } elseif ($location === 'away') {
+            $club = $fixture->awayClub;
+        }
+
+        $fixture->fixtureMeta()->where('meta_key', $location . '_propped')->delete();
+        $fixture->fixtureMeta()->where('meta_key', $location . '_propped_score')->delete();
+
+        UserStat::where('fixture_id')->where('club_id', $club->id)->delete();
+
+        $fixture->status = FixtureStatus::Unplayed;
+        $fixture->save();
+        $this->toast('Fixture unpropped', 'success');
+
+
     }
 }

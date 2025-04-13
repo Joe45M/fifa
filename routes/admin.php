@@ -36,6 +36,10 @@ Route::prefix('/admin')->group(function () {
     Route::get('/fixtures/{fixture:id}', \App\Livewire\Admin\EditFixture::class)
         ->middleware(['can:Admin Create Fixtures'])
         ->name('admin.fixtures.edit');
+
+    Route::get('/fixtures/default/{fixture:id}', \App\Livewire\Admin\DefaultFixture::class)
+        ->middleware(['can:Admin Create Fixtures'])
+        ->name('admin.fixtures.default');
 });
 
 ?>

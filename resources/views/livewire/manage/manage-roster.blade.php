@@ -10,14 +10,16 @@
 
                 <div @click.outside="open = false" x-show="open" class="absolute w-[250px] top-6 right-0">
                     <div class="bg-white border border-gray-300 shadow-md rounded-md">
+                        @if($player->currentContract->type === ContractType::Player)
+                            <button wire:click="toggleCoManager({{ $player->currentContract->id }})" class="w-full p-3 text-left hover:bg-gray-100">Promote as Co-Manager</button>
+                        @endif
 
-                @if($player->currentContract->type === ContractType::Player)
-                    <button wire:click="toggleCoManager({{ $player->currentContract->id }})" class="w-full p-3 text-left hover:bg-gray-100">Promote as Co-Manager</button>
-                @endif
+                        @if($player->currentContract->type === ContractType::CoManager)
+                            <button wire:click="toggleCoManager({{ $player->currentContract->id }})" class="w-full p-3 text-left hover:bg-gray-100">Demote from Co-Manager</button>
+                        @endif
 
-                @if($player->currentContract->type === ContractType::CoManager)
-                    <button wire:click="toggleCoManager({{ $player->currentContract->id }})" class="w-full p-3 text-left hover:bg-gray-100">Demote from Co-Manager</button>
-                @endif
+                            <button wire:click="release({{ $player->currentContract->id }})" class="w-full p-3 text-left hover:bg-gray-100 text-red-400">Release player</button>
+
                     </div>
                 </div>
             </div>

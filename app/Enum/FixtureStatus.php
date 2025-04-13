@@ -8,4 +8,6 @@ enum FixtureStatus: string
     case Unplayed = 'unplayed';
     case Completed = 'completed';
     case Postponed = 'postponed';
+
+    case Processing = 'processing';
 }

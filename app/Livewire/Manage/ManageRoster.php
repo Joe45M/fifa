@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Manage;
 
+use App\Enum\ContractStatus;
 use App\Enum\ContractType;
 use App\Models\Contract;
 use App\Models\User;
@@ -17,6 +18,14 @@ class ManageRoster extends Component
         $this->players = auth()->user()->currentContract->club->players;
 
         return view('livewire.manage.manage-roster')->layout('layouts.manage');
+    }
+
+    public function release(Contract $contract)
+    {
+        $contract->status = ContractStatus::Inactive;
+        $contract->save();
+
+        $this->dispatch('toast', 'Player released');
     }
 
     public function toggleCoManager(Contract $contract)

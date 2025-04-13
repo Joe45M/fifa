@@ -52,13 +52,14 @@
                             {{ $actions }}
                         </header>
                     @endif
-
                     {{ $slot }}
                 </div>
 
             </div>
         </div>
     </main>
+    <script src="https://kit.fontawesome.com/57607a1fa7.js" crossorigin="anonymous"></script>
+
     @filamentStyles
     @filamentScripts
     @vite(['resources/js/app.js'])

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Enum\ContractStatus;
+use App\Enum\ContractType;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -64,10 +65,64 @@ class User extends Authenticatable implements HasMedia
 
     public function getImageAttribute()
     {
-        $image = $this->getFirstMedia('profile');
+        $image = $this->getFirstMediaUrl('image');
 
         if (!$image) {
             return 'https://www.gravatar.com/avatar/' . md5(strtolower(trim($this->email))) . '?d=mp';
         }
+
+        return $image;
     }
+
+    public function stats()
+    {
+        return $this->hasMany(UserStat::class);
+    }
+
+    public function getPlayedAttribute()
+    {
+        return $this->hasMany(UserStat::class)->where('stat', 'assists')->count();
+    }
+
+    public function goals()
+    {
+        return $this->stats()->where('stat', 'goals');
+    }
+
+    public function tackles()
+    {
+        return $this->stats()->where('stat', 'tackles');
+    }
+
+    public function assists()
+    {
+        return $this->stats()->where('stat', 'assists');
+    }
+
+    public function passes()
+    {
+        return $this->stats()->where('stat', 'passes');
+    }
+
+    public function shots()
+    {
+        return $this->stats()->where('stat', 'shots');
+    }
+
+    public function yellowCards()
+    {
+        return $this->stats()->where('stat', 'yellow_cards');
+    }
+
+    public function redCards()
+    {
+        return $this->stats()->where('stat', 'red_cards');
+    }
+
+    public function getManagerAttribute()
+    {
+        return in_array($this?->currentContract?->type, [ContractType::Manager, ContractType::CoManager]);
+    }
+
+
 }

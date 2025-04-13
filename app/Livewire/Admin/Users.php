@@ -4,6 +4,7 @@ namespace App\Livewire\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,7 +22,7 @@ class Users extends Component
 
     public function render()
     {
-        $users = User::select('name', 'email')->where('name', 'LIKE', '%' . $this->search . '%')->paginate(20);
+        $users = User::select('id', 'name', 'email')->where('name', 'LIKE', '%' . $this->search . '%')->paginate(20);
 
         return view('livewire.admin.users', [
             'users' => $users,
@@ -30,7 +31,10 @@ class Users extends Component
 
     public function impersonate(User $user)
     {
-        Auth::user()->impersonate($user);
+        session()->put('impersonate', Auth::id());
+        Auth::logout();
+        Auth::login($user);
+        Session::regenerate();
 
         $this->redirect(route('dashboard'));
     }

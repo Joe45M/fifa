@@ -15,6 +15,10 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+
+        <livewire:toast></livewire:toast>
+
+        <livewire:cancel-impersonate></livewire:cancel-impersonate>
         <div class="min-h-screen bg-gray-100">
             <livewire:layout.navigation />
 
@@ -34,5 +38,7 @@
         </div>
 
         <script src="https://kit.fontawesome.com/57607a1fa7.js" crossorigin="anonymous"></script>
+        @filamentStyles
+        @filamentScripts
     </body>
 </html>
