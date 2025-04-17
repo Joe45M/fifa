@@ -4,6 +4,7 @@ use App\Http\Middleware\ManagerMiddleware;
 use App\Livewire\ClubProfile;
 use App\Livewire\Dashboard;
 use App\Livewire\FixtureDetails;
+use App\Livewire\Leaderboards;
 use App\Livewire\LeagueTable;
 use App\Livewire\Manage\ManageContracts;
 use App\Livewire\Manage\ManageDashboard;
@@ -36,6 +37,8 @@ Route::get('/club/{club:name}', ClubProfile::class)->name('club');
 
 Route::get('/p/{user:name}', UserProfile::class)->name('user.profile')
     ->middleware(['auth']);
+
+Route::get('/leaderboards/{stat}', Leaderboards::class)->name('leaderboards');
 
 Route::get('/league/{league:id}', LeagueTable::class)->name('league');
 
